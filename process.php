@@ -3,8 +3,13 @@ use setasign\Fpdf;
 use setasign\Fpdi;
 require 'vendor/autoload.php';
 
-$x = $_POST['x'];
-$y = $_POST['y'];
+$x = 0;
+$y = 0;
+if (!empty($_POST['x']) || !empty($_POST['y'])) {
+	$x = $_POST['x'];
+	$y = $_POST['y'];
+}
+
 $pdf = new Fpdi\Fpdi();
 
 // buka file pdfnya
@@ -12,7 +17,7 @@ $pagecount = $pdf->setSourceFile("pdf.pdf");
 
 // menentukan halaman berapa yang ingin diedit
 $halaman = 1;
-if (isset($_POST['page'])) {
+if (!empty($_POST['page'])) {
 	#jika parameter page maka set $halaman sesuai dengan parameter yang dikirim
 	$halaman = $_POST['page'];
 }

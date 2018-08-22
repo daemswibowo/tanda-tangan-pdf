@@ -7,13 +7,17 @@ $x = $_POST['x'];
 $y = $_POST['y'];
 $pdf = new Fpdi\Fpdi();
 
-//Set the source PDF file
+// buka file pdfnya
 $pagecount = $pdf->setSourceFile("pdf.pdf");
+
+// menentukan halaman berapa yang ingin diedit
 $halaman = 1;
 if (isset($_POST['page'])) {
+	#jika parameter page maka set $halaman sesuai dengan parameter yang dikirim
 	$halaman = $_POST['page'];
 }
-//Import the first page of the file
+
+// import dan patch gambar ttd ke halaman yang dipilih
 for ($pageNo=1; $pageNo<=$pagecount; $pageNo++) {
 	$templateID = $pdf->importPage($pageNo);
 	$pdf->getTemplateSize($templateID);

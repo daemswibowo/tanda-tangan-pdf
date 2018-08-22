@@ -93,7 +93,6 @@ if (isset($_GET['page'])) {
 		function renderPdf (url,elemen,pageNumber) {
 			var loadingTask = pdfjsLib.getDocument(url);
 			loadingTask.promise.then(function(pdf) {
-				console.log('PDF loaded');
 				pdf.getPage(pageNumber).then(function(page) {
 					var scale = 1.5;
 					var viewport = page.getViewport(scale);
@@ -108,9 +107,12 @@ if (isset($_GET['page'])) {
 						viewport: viewport
 					};
 					page.render(renderContext);
+				}, function (reason) {
+					alert('Halaman <?php echo $page ?> tidak ditemukan! '+reason);
 				});
 
 			}, function (reason) {
+				alert('Gagal memuat file! '+ reason);
 				console.error(reason);
 			});
 		}
